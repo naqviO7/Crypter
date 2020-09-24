@@ -10,7 +10,7 @@
 
 # If you like it give it a star
 
-[![GitHub stars](https://img.shields.io/github/stars/adrijano/crypto-watcher.svg?style=social&label=Star&maxAge=2592000)](https://github.com/adrijano/Crypter-v1.1)
+[![GitHub stars](https://img.shields.io/github/stars/adrijano/Crypter-v1.1.svg?style=social&label=Star&maxAge=2592000)](https://github.com/adrijano/Crypter-v1.1)
 
 ![Crypter](crypter.gif)
 
