@@ -1,5 +1,0 @@
-PySimpleGUI
-
-PySimpleGUIWeb
-pyperclip
-cryptography
