@@ -70,14 +70,16 @@ def create_main_window(settings):
     right_click_menu = ['Unused', ['&Copy', '&Paste','Settings', 'E&xit']]
 
     layout =  [[sg.Menu(menu_def)],
-               [sg.Image('enc.png'),sg.Text('Encrypt and decrypt files', size=[32, 1]), sg.Button('', key='paypal', size=(12,1), button_color=(sg.theme_background_color(), sg.theme_background_color()),
-                                                    image_filename='paypal.png', image_size=(80, 50), image_subsample=2, border_width=0)],      
+               [sg.Image('enc.png'),sg.Text('Encrypt and decrypt files', size=[21, 1]), sg.Button('', key='paypal', size=(12,1), font=('Helvetica', 9), button_color=(sg.theme_background_color(), sg.theme_background_color()),
+                           image_filename='paypal.png', image_size=(80, 50), image_subsample=2, border_width=0),
+                 sg.Button('', key='bitcoin', size=(12,1), font=('Helvetica', 9), button_color=(sg.theme_background_color(), sg.theme_background_color()),
+                           image_filename='bitcoin.png', image_size=(80, 60), image_subsample=2, border_width=0)],         
                [sg.Output(size=(60, 20), key='out')],
                [sg.Text('Password',size=(10,1)),sg.In(size=(49,1), key=('pass'))],
                [sg.Text('Select file', size=(10,1)),sg.In(size=(40, 1),key='-in-'), sg.FileBrowse()],
                [sg.Button('Encrypt'), sg.Button('Decrypt')]]
 
-    return sg.Window('Crypter', default_element_size=(30, 2)).Layout(layout)      
+    return sg.Window('Crypter', default_element_size=(11, 2)).Layout(layout)      
 
 def main():
     window, settings = None, load_settings(SETTINGS_FILE, DEFAULT_SETTINGS )
@@ -88,7 +90,10 @@ def main():
         event, value = window.Read()
         filename = value['-in-']
         passw = value['pass']
-        if event == 'Encrypt':
+        if event in (None, 'Exit'):
+            break
+
+        elif event == 'Encrypt':
             try:
                 with open(filename, 'rb') as f:
                     data = f.read()
@@ -145,7 +150,9 @@ def main():
 
         elif event == 'paypal':
             webbrowser.open_new_tab("https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=PFB6A6HLAQHC2&source=url")
-
+        
+        elif event == 'bitcoin':
+            webbrowser.open_new_tab("https://commerce.coinbase.com/checkout/149a6235-ec7e-4d3b-a1ae-b08c4f08b4f6")
         
         elif event == 'Settings':
             event, values = create_settings_window(settings).read(close=True)
@@ -154,8 +161,6 @@ def main():
                 window = None
                 save_settings(SETTINGS_FILE, settings, values)
 
-        elif event == 'Exit':
-            break
     window.Close()
 
 main()
