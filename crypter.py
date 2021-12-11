@@ -1,3 +1,4 @@
+#python file encryptor and decryptor
 import PySimpleGUI as sg
 import os
 import base64
